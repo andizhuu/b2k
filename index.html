@@ -1,39 +1,164 @@
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Tambah bintang random
-    const starsContainer = document.querySelector('.stars');
-    for (let i = 0; i < 60; i++) {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.top = Math.random() * 100 + "%";
-      star.style.left = Math.random() * 100 + "%";
-      star.style.animationDuration = (2 + Math.random() * 4) + "s";
-      starsContainer.appendChild(star);
-    }
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B2K Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif;}
 
-    // Tombol mulai jelajah
-    const startBtn = document.getElementById('startBtn');
-    startBtn.addEventListener('click', () => {
-      document.getElementById('landing').style.display = "none";
-      document.getElementById('main').style.display = "block";
-      window.scrollTo({top:0, behavior:'smooth'});
+    body {background:#f9fafc; color:#222; line-height:1.6; overflow-x:hidden;}
+
+    /* ===== LANDING PAGE ===== */
+    #landing {
+      position:fixed;
+      top:0; left:0;
+      width:100%; height:100vh;
+      display:flex; justify-content:center; align-items:center;
+      background:linear-gradient(-45deg,#1a1a2e,#16213e,#0f3460,#0072ff);
+      background-size:400% 400%;
+      animation:gradientMove 15s ease infinite;
+      color:#fff;
+      overflow:hidden;
+      z-index:999;
+      transition:opacity 1s ease;
+    }
+    @keyframes gradientMove {
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+    .stars {position:absolute; width:100%; height:100%; top:0; left:0;}
+    .star {position:absolute; width:2px; height:2px; background:white; border-radius:50%; opacity:0.8; animation:twinkle 5s infinite ease-in-out;}
+    @keyframes twinkle {0%,100%{opacity:0.2; transform:scale(0.8);} 50%{opacity:1; transform:scale(1.5);}}
+    .card {position:relative; z-index:2; background:rgba(255,255,255,0.08); padding:40px; border-radius:20px; backdrop-filter:blur(15px); text-align:center;}
+    .btn {margin-top:15px; padding:12px 25px; border:none; border-radius:12px; font-size:1rem; cursor:pointer; color:#fff; background:linear-gradient(135deg,#00c6ff,#0072ff); transition:0.3s;}
+    .btn:hover {transform:translateY(-3px);}
+
+    /* ===== WEBSITE UTAMA ===== */
+    #main {display:none;}
+
+    header {background:#111827; color:#fff; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100;}
+    header h1 {font-size:1.5rem;}
+    nav a {color:#fff; margin-left:1rem; text-decoration:none; font-weight:500; transition:0.3s;}
+    nav a:hover {color:#3b82f6;}
+    .toggle-btn {cursor:pointer; background:#3b82f6; border:none; padding:0.5rem 1rem; border-radius:8px; color:white; font-weight:600; margin-left:1rem;}
+    .toggle-btn:hover {background:#2563eb;}
+
+    .hero {text-align:center; padding:4rem 2rem; background:linear-gradient(to right,#3b82f6,#9333ea); color:white;}
+    .hero h2 {font-size:2.5rem; margin-bottom:1rem;}
+
+    .container {max-width:1100px; margin:auto; padding:2rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem;}
+    .card-main {background:white; padding:1.5rem; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); transition:0.3s;}
+    .card-main:hover {transform:translateY(-5px);}
+
+    footer {text-align:center; padding:1.5rem; background:#111827; color:#ddd; margin-top:2rem;}
+    footer a {color:#3b82f6; text-decoration:none;}
+
+    /* Dark Mode */
+    body.dark {background:#111827; color:#eee;}
+    body.dark header, body.dark footer {background:#0f172a; color:#ccc;}
+    body.dark .card-main {background:#1e293b; color:#eee;}
+    body.dark nav a {color:#ddd;}
+    body.dark nav a:hover {color:#60a5fa;}
+  </style>
+</head>
+<body>
+  
+  <!-- ===== LANDING PAGE ===== -->
+  <section id="landing">
+    <div class="stars"></div>
+    <div class="card">
+      <h1>🌐 Selamat Datang di B2K</h1>
+      <p>Tampilan modern 2025 dengan efek timbul + partikel bintang</p>
+      <button class="btn" id="startBtn">Mulai Jelajah</button>
+    </div>
+  </section>
+
+  <!-- ===== WEBSITE UTAMA ===== -->
+  <section id="main">
+    <header>
+      <h1>B2K</h1>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">Tutorial</a>
+        <a href="#">Review Tools</a>
+        <a href="#">Berita</a>
+        <a href="#">Etika</a>
+        <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Mode</button>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h2>Selamat Datang di B2K</h2>
+      <p>Platform modern untuk tutorial, review tools, berita, dan etika digital terbaru di 2025.</p>
+    </section>
+
+    <section class="container">
+      <div class="card-main">
+        <h3>Tutorial</h3>
+        <p>Panduan lengkap step-by-step untuk mempermudah belajar teknologi.</p>
+      </div>
+      <div class="card-main">
+        <h3>Review Tools</h3>
+        <p>Ulasan mendalam berbagai aplikasi & tools yang sedang tren di 2025.</p>
+      </div>
+      <div class="card-main">
+        <h3>Industri & Berita</h3>
+        <p>Kabar terbaru seputar perkembangan dunia digital dan industri kreatif.</p>
+      </div>
+      <div class="card-main">
+        <h3>Etika Digital</h3>
+        <p>Tips dan panduan bijak dalam menggunakan teknologi di era modern.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2025 B2K | Dibuat dengan ❤️ di GitHub Pages</p>
+    </footer>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Tambah bintang random
+      const starsContainer = document.querySelector('.stars');
+      for (let i = 0; i < 60; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = Math.random() * 100 + "%";
+        star.style.left = Math.random() * 100 + "%";
+        star.style.animationDuration = (2 + Math.random() * 4) + "s";
+        starsContainer.appendChild(star);
+      }
+
+      // Klik tombol -> tampilkan main
+      const startBtn = document.getElementById('startBtn');
+      startBtn.addEventListener('click', () => {
+        const landing = document.getElementById('landing');
+        landing.style.opacity = "0"; // fade out
+        setTimeout(() => {
+          landing.style.display = "none";
+          document.getElementById('main').style.display = "block";
+          window.scrollTo({top:0, behavior:"smooth"});
+        }, 1000); // tunggu transisi 1 detik
+      });
     });
-  });
 
-  // Dark mode toggle
-  function toggleDarkMode() {
-    document.body.classList.toggle('dark');
-    if (document.body.classList.contains('dark')) {
-      localStorage.setItem('theme', 'dark');
-    } else {
-      localStorage.setItem('theme', 'light');
+    // Dark mode
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      if (document.body.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
     }
-  }
-
-  // Load preferensi theme
-  window.onload = () => {
-    if (localStorage.getItem('theme') === 'dark') {
-      document.body.classList.add('dark');
+    window.onload = () => {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark');
+      }
     }
-  }
-</script>
+  </script>
+</body>
+</html>
